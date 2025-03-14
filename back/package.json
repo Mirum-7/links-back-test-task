@@ -10,6 +10,7 @@
     "prepare": "husky && prisma generate --no-hints --allow-no-models",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "build": "webpack",
+    "test": "jest",
     "dev": "nest start --watch",
     "debug": "nest start --debug --watch"
   },

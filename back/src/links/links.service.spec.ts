@@ -3,11 +3,14 @@ import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { Links, PrismaClient } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
+import { CreateLinkDto } from './dto/create-link';
 import { LinksService } from './links.service';
 
 describe('LinksService', () => {
   let prisma: DeepMockProxy<PrismaService>;
   let service: LinksService;
+  let mockLinkRequest: CreateLinkDto;
+  let mockLinkData: Links;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -19,41 +22,46 @@ describe('LinksService', () => {
 
     service = module.get(LinksService);
     prisma = module.get(PrismaService);
-  });
 
-  it('Create new alias', async () => {
     const expiresAt = new Date(Date.now() + 10000);
 
-    const mockLinkRequest = {
+    mockLinkRequest = {
       alias: 'google',
       originalUrl: 'https://google.com',
       expiresAt: expiresAt.toISOString(),
     };
 
-    const mockLinkData: Links = {
+    mockLinkData = {
       id: 1n,
       ...mockLinkRequest,
       expiresAt,
     };
+  });
 
+  it('Create new alias', async () => {
     prisma.links.create.mockResolvedValueOnce(mockLinkData);
 
     expect(await service.create(mockLinkRequest)).toBe(mockLinkData);
   });
 
   it('Create exist alias', async () => {
-    const expiresAt = new Date(Date.now() + 10000);
-
-    const mockLinkRequest = {
-      alias: 'google',
-      originalUrl: 'https://google.com',
-      expiresAt: expiresAt.toISOString(),
-    };
-
     prisma.links.create.mockRejectedValueOnce({
       code: 'P2002',
     });
 
-    await expect(service.create(mockLinkRequest)).rejects.toThrow(ConflictException);
+    await expect(service.create(mockLinkRequest)).rejects.toThrow(
+      new ConflictException('Alias "google" already exists'),
+    );
+  });
+
+  it('Create alias in the past', async () => {
+    const mockLinkPastRequest = {
+      ...mockLinkRequest,
+      expiresAt: new Date(Date.now() - 10000).toISOString(),
+    };
+
+    await expect(service.create(mockLinkPastRequest)).rejects.toThrow(
+      new ConflictException('Expiry date must be in the future'),
+    );
   });
 });
