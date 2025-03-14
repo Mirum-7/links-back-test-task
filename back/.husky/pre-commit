@@ -1,0 +1,9 @@
+# .husky/pre-commit
+prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+git update-index --again
+
+# Проверяем, изменился ли файл schema.prisma
+if git diff --cached --name-only | grep -q 'schema.prisma'; then
+    echo "Changes in schema.prisma detected..."
+    yarn prisma format
+fi

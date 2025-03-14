@@ -1,0 +1,53 @@
+{
+  "name": "@mirum7/links-backend",
+  "version": "1.0.0",
+  "description": "backend service to make short links",
+  "author": "Edward Gryazev",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "prisma": "prisma format && prisma generate --no-hints --allow-no-models",
+    "prepare": "husky && prisma generate --no-hints --allow-no-models",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "build": "webpack",
+    "dev": "nest start --watch",
+    "debug": "nest start --debug --watch"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/schedule": "^5.0.1",
+    "class-transformer": "^0.5.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.11",
+    "@prisma/client": "^6.4.1",
+    "@swc/cli": "^0.6.0",
+    "@swc/core": "^1.11.7",
+    "@swc/jest": "^0.2.37",
+    "@types/dotenv-webpack": "^7.0.8",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.7",
+    "@types/supertest": "^6.0.2",
+    "class-validator": "^0.14.1",
+    "dotenv-webpack": "^8.1.0",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "jest-mock": "^29.7.0",
+    "jest-mock-extended": "^4.0.0-beta1",
+    "prettier": "^3.5.3",
+    "prisma": "^6.4.1",
+    "source-map-support": "^0.5.21",
+    "swc-loader": "^0.2.6",
+    "terser-webpack-plugin": "^5.3.14",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "webpack-cli": "^6.0.1"
+  }
+}
