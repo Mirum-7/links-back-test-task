@@ -8,7 +8,7 @@
   "scripts": {
     "prisma": "prisma format && prisma generate --no-hints --allow-no-models",
     "prepare": "husky && prisma generate --no-hints --allow-no-models",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "build": "webpack",
     "test": "jest",
     "dev": "nest start --watch",
