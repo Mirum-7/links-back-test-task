@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ScheduleModule as SchedulerModule } from '@nestjs/schedule';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { ClicksModule } from './clicks/clicks.module';
 import { LinksModule } from './links/links.module';
 import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
-  imports: [SchedulerModule.forRoot(), LinksModule, ScheduleModule],
+  imports: [LinksModule, ScheduleModule, AnalyticsModule, ClicksModule],
 })
 export class AppModule {}

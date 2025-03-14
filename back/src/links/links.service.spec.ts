@@ -28,12 +28,13 @@ describe('LinksService', () => {
     mockLinkRequest = {
       alias: 'google',
       originalUrl: 'https://google.com',
-      expiresAt: expiresAt.toISOString(),
+      expiresAt: expiresAt.getTime(),
     };
 
     mockLinkData = {
       id: 1n,
-      ...mockLinkRequest,
+      alias: mockLinkRequest.alias!,
+      originalUrl: mockLinkRequest.originalUrl,
       expiresAt,
     };
   });
@@ -57,7 +58,7 @@ describe('LinksService', () => {
   it('Create alias in the past', async () => {
     const mockLinkPastRequest = {
       ...mockLinkRequest,
-      expiresAt: new Date(Date.now() - 10000).toISOString(),
+      expiresAt: new Date(Date.now() - 10000).getTime(),
     };
 
     await expect(service.create(mockLinkPastRequest)).rejects.toThrow(

@@ -4,6 +4,7 @@ declare global {
   }
 }
 
+// Add to json support for BigInt
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };

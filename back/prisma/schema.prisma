@@ -14,10 +14,23 @@ datasource db {
 }
 
 model Links {
-  id          BigInt   @id @default(autoincrement())
-  alias       String   @unique @db.VarChar(20)
+  id          BigInt    @id @default(autoincrement())
   originalUrl String
-  expiresAt   DateTime @db.Timestamp()
+  alias       String    @unique @db.VarChar(20)
+  expiresAt   DateTime? @db.Timestamp()
+
+  Clicks Clicks[]
 
   @@index([alias])
+}
+
+model Clicks {
+  id        BigInt   @id @default(autoincrement())
+  linkId    BigInt
+  ip        String?  @db.Inet()
+  createdAt DateTime @default(now()) @db.Timestamp()
+
+  Links Links @relation(fields: [linkId], references: [id])
+
+  @@index([linkId, createdAt])
 }

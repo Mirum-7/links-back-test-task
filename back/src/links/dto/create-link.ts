@@ -1,4 +1,10 @@
-import { IsDateString, IsString, IsUrl, MaxLength } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateLinkDto {
   @IsString()
@@ -7,8 +13,13 @@ export class CreateLinkDto {
 
   @IsString()
   @MaxLength(20)
-  alias: string;
+  @IsOptional()
+  alias: string | null;
 
-  @IsDateString()
-  expiresAt: string;
+  @IsNumber({
+    allowInfinity: false,
+    allowNaN: false,
+  })
+  @IsOptional()
+  expiresAt: number | null;
 }

@@ -1,11 +1,13 @@
+import { AnalyticsModule } from '@/analytics/analytics.module';
 import { PrismaModule } from '@/prisma/prisma.module';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { LinksController } from './links.controller';
 import { LinksService } from './links.service';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, forwardRef(() => AnalyticsModule)],
   controllers: [LinksController],
   providers: [LinksService],
+  exports: [LinksService],
 })
 export class LinksModule {}
