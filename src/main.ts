@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new FormattedValidationPipe());
 
   app.enableCors({
-    origin: '*',
+    origin: '*.mirum7.dev',
     methods: 'GET,POST,DELETE',
     optionsSuccessStatus: 204,
   });

@@ -1,11 +1,13 @@
 services:
-  nest-links:
+  links-back-test-task:
     container_name: links-back-test-task
     build:
       context: .
       dockerfile: ./dockerfile
     networks:
       - postgres-network
+    ports:
+      - "${NEST_PORT}:${NEST_PORT}"
     environment:
       DATABASE_URL: ${DATABASE_URL}
 
