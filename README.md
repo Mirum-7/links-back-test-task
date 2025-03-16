@@ -12,4 +12,4 @@
 - `yarn prisma` - создать client и отформатировать `schema.prisma`
 - `yarm format` - запустить prettier
 
-> Можно потыкать самому - [links](https://links.mirum7.dev)
+> Можно потыкать самому - [links](https://short.mirum7.dev)
