@@ -28,4 +28,12 @@ export class ClicksService {
       where: { linkId },
     });
   }
+
+  deleteByAliasDangerous(alias: string) {
+    return this.prisma.clicks.deleteMany({
+      where: { Links: { alias } },
+    });
+
+    // No error handling because prisma need to return PrismaPromise.
+  }
 }

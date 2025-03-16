@@ -1,3 +1,4 @@
+import { ClicksService } from '@/clicks/clicks.service';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ConflictException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -9,12 +10,13 @@ import { LinksService } from './links.service';
 describe('LinksService', () => {
   let prisma: DeepMockProxy<PrismaService>;
   let service: LinksService;
+
   let mockLinkRequest: CreateLinkDto;
   let mockLinkData: Links;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [LinksService, PrismaService],
+      providers: [LinksService, PrismaService, ClicksService],
     })
       .overrideProvider(PrismaService)
       .useValue(mockDeep<PrismaClient>())
@@ -36,6 +38,7 @@ describe('LinksService', () => {
       alias: mockLinkRequest.alias!,
       originalUrl: mockLinkRequest.originalUrl,
       expiresAt,
+      createdAt: new Date(),
     };
   });
 
@@ -51,7 +54,7 @@ describe('LinksService', () => {
     });
 
     await expect(service.create(mockLinkRequest)).rejects.toThrow(
-      new ConflictException('Alias "google" already exists'),
+      new ConflictException({ alias: 'Alias "google" already exists' }),
     );
   });
 
@@ -62,7 +65,9 @@ describe('LinksService', () => {
     };
 
     await expect(service.create(mockLinkPastRequest)).rejects.toThrow(
-      new ConflictException('Expiry date must be in the future'),
+      new ConflictException({
+        expiresAt: 'Expiry date must be in the future',
+      }),
     );
   });
 });

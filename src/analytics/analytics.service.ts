@@ -17,7 +17,7 @@ export class AnalyticsService {
     const link = await this.linksService.getByAlias(linkAlias);
 
     // get count of clicks
-    const count = await this.clicksService.getClicksCount(link.id);
+    const clicksCount = await this.clicksService.getClicksCount(link.id);
 
     // get last clicks
     const clicks = await this.clicksService.findLastByLinkId(
@@ -26,7 +26,7 @@ export class AnalyticsService {
     );
 
     return {
-      count,
+      clicksCount,
       clicks,
     };
   }

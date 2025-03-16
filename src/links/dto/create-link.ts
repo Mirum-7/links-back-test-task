@@ -1,25 +1,24 @@
 import {
-  IsNumber,
+  IsDateString,
   IsOptional,
-  IsString,
   IsUrl,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
 export class CreateLinkDto {
-  @IsString()
-  @IsUrl()
+  @IsUrl(undefined)
   originalUrl: string;
 
-  @IsString()
+  @Matches(/^[a-z0-9-_]*$/, {
+    message:
+      'Alias must contain only lowercase letters, dashes, and underscores',
+  })
   @MaxLength(20)
   @IsOptional()
   alias: string | null;
 
-  @IsNumber({
-    allowInfinity: false,
-    allowNaN: false,
-  })
+  @IsDateString()
   @IsOptional()
   expiresAt: number | null;
 }

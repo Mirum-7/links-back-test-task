@@ -40,7 +40,7 @@ export class LinksController {
 
   @Get('info/:shortUrl')
   info(@Param('shortUrl') shortUrl: string) {
-    return this.linksService.getByAlias(shortUrl);
+    return this.linksService.getInfoByAlias(shortUrl);
   }
 
   @Delete('delete/:shortUrl')

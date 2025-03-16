@@ -2,14 +2,15 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import './jsonBigInt';
+import { FormattedValidationPipe } from './shared/pipes/FormattedValidationPipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new FormattedValidationPipe());
 
   app.enableCors({
-    origin: 'https://links.mirum7.dev',
+    origin: '*',
     methods: 'GET,POST,DELETE',
     optionsSuccessStatus: 204,
   });

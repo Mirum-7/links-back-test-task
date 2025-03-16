@@ -1,6 +1,6 @@
 import { Clicks } from '@prisma/client';
 
 export interface ClicksAnalyticsResponse {
-  count: number;
+  clicksCount: number;
   clicks: Clicks[];
 }

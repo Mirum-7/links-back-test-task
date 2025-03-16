@@ -18,6 +18,7 @@ model Links {
   originalUrl String
   alias       String    @unique @db.VarChar(20)
   expiresAt   DateTime? @db.Timestamp()
+  createdAt   DateTime  @default(now()) @db.Timestamp()
 
   Clicks Clicks[]
 
