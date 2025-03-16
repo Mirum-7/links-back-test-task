@@ -21,7 +21,7 @@ async function bootstrap() {
     process.exit(0);
   });
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.NEST_PORT || 3000);
 }
 
 bootstrap().catch((error) => {
